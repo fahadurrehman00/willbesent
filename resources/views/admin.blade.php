@@ -23,7 +23,7 @@
                 <!-- Cards Section -->
                 <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-[#E2E8F0] p-6 rounded-lg shadow hover:shadow-lg transition">
-                        <h2 class="text-gray-600 font-bold">Total Client</h2>
+                        <h2 class="text-gray-600 font-bold">Total Clients</h2>
                         <p class="text-gray-800 text-2xl mt-2" id="totalclient"></p>
                     </div>
                     <div class="bg-[#E2E8F0] p-6 rounded-lg shadow hover:shadow-lg transition">
