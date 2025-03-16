@@ -102,16 +102,6 @@
 
             </section>
 
-            <!-- Notes Section -->
-            <!-- <section class="bg-white p-6 rounded-lg shadow-lg mt-6">
-                <h2 class="text-xl font-bold mb-4">Admin Notes</h2>
-                <textarea id="adminNotes" class="w-full p-2 border border-gray-300 rounded-lg h-40"></textarea>
-                <div class="text-right mt-4">
-                    <button id="saveNotes" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Save Notes</button>
-                </div>
-            </section> -->
-
-
             <section class="mt-6 bg-white p-6 rounded-lg shadow">
                 <div class="flex justify-between items-center mb-4">
                 </div>

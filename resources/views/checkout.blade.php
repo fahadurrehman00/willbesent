@@ -13,7 +13,6 @@
 
 <body class="bg-gray-100">
     <!-- Header -->
-
     @include('components.user-header')
 
     <!-- Main Content -->
@@ -56,7 +55,7 @@
                     <label
                         class="flex items-start gap-4 border p-4 rounded-lg hover:shadow-lg transition cursor-pointer ">
                         <input id="fullWill" type="checkbox" name="subscription[]" value="fullWill,10,100"
-                            class="hidden peer" {{-- @if (isset(Auth::user()->subscriptions->first()->fullWill) && Auth::user()->subscriptions->first()->fullWill == '1') checked @endif --}} />
+                            class="hidden peer" />
                         <div
                             class="w-5 h-5 border-2 border-gray-300 rounded-lg peer-checked:bg-[#415a77] peer-checked:border-[#415a77] transition-all duration-300">
                         </div>
@@ -71,8 +70,7 @@
 
                     <label
                         class="flex items-start gap-4 border p-4 rounded-lg hover:shadow-lg transition cursor-pointer ">
-                        <input type="checkbox" name="subscription[]" value="poa,1,10" class="hidden peer"
-                            {{-- @if (isset(Auth::user()->subscriptions->first()->poa) && Auth::user()->subscriptions->first()->poa == '1') checked @endif --}} />
+                        <input type="checkbox" name="subscription[]" value="poa,1,10" class="hidden peer" />
                         <div
                             class="w-5 h-5 border-2 border-gray-300 rounded-lg peer-checked:bg-[#415a77] peer-checked:border-[#415a77] transition-all duration-300">
                         </div>
@@ -87,8 +85,7 @@
 
                     <label
                         class="flex items-start gap-4 border p-4 rounded-lg hover:shadow-lg transition cursor-pointer ">
-                        <input type="checkbox" name="subscription[]" value="executor,1,10" class="hidden peer"
-                            {{-- @if (isset(Auth::user()->subscriptions->first()->executor) && Auth::user()->subscriptions->first()->executor == '1') checked @endif --}} />
+                        <input type="checkbox" name="subscription[]" value="executor,1,10" class="hidden peer" />
                         <div
                             class="w-5 h-5 border-2 border-gray-300 rounded-lg peer-checked:bg-[#415a77] peer-checked:border-[#415a77] transition-all duration-300">
                         </div>
@@ -102,11 +99,33 @@
                     </label>
                 </div>
 
-                <!-- Hidden Input for Total -->
+                <!-- Coupon Code Section -->
+                <div class="border p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                        Have a Coupon?
+                    </h3>
+                    <div class="flex gap-2">
+                        <input type="text" id="couponCode" name="couponCode" placeholder="Enter coupon code"
+                            class="flex-grow p-2 border border-gray-300 rounded-lg" />
+                        <button type="button" id="applyCoupon"
+                            class="bg-[#415a77] text-white py-2 px-4 rounded-lg hover:bg-[#f47d61] transition-all duration-300">
+                            Apply
+                        </button>
+                    </div>
+                    <div id="couponMessage" class="mt-2 text-sm"></div>
+                </div>
+
+                <!-- Hidden Input for Total and Discount -->
                 <input type="hidden" name="totalAmount" id="totalAmount" />
+                <input type="hidden" name="discountAmount" id="discountAmount" value="0" />
+                <input type="hidden" name="appliedCoupon" id="appliedCoupon" value="" />
 
                 <!-- Total and Subscribe Button -->
                 <div class="text-right">
+                    <div id="discountInfo" class="hidden mb-2">
+                        <p class="text-gray-700">Original Price: $<span id="originalPrice">0</span></p>
+                        <p class="text-green-600">Discount: $<span id="discountValue">0</span></p>
+                    </div>
                     <h3 class="text-xl font-semibold">
                         Total: $<span id="subscriptionTotal">0</span>
                     </h3>
@@ -198,88 +217,152 @@
     </main>
 
     <!-- Footer -->
-    
     @include('components.footer')
     @include('components.toast')
-    <script src="//code.tidio.co/oohi4ck9zmzjoekpsft3cp6h9cnitwej.js" async></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        const billingCycleRadios = document.querySelectorAll('input[name="billingCycle"]');
-        const subscriptionCheckboxes = document.querySelectorAll('input[name="subscription[]"]');
-        const totalAmountInput = document.getElementById('totalAmount');
-        const totalAmountDisplay = document.getElementById('subscriptionTotal');
+        <script src="//code.tidio.co/oohi4ck9zmzjoekpsft3cp6h9cnitwej.js" async></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            const billingCycleRadios = document.querySelectorAll('input[name="billingCycle"]');
+            const subscriptionCheckboxes = document.querySelectorAll('input[name="subscription[]"]');
+            const totalAmountInput = document.getElementById('totalAmount');
+            const totalAmountDisplay = document.getElementById('subscriptionTotal');
+            const originalPriceDisplay = document.getElementById('originalPrice');
+            const discountValueDisplay = document.getElementById('discountValue');
+            const discountInfo = document.getElementById('discountInfo');
+            const discountAmountInput = document.getElementById('discountAmount');
+            const appliedCouponInput = document.getElementById('appliedCoupon');
+            const couponMessageElement = document.getElementById('couponMessage');
 
-        function calculateTotal() {
-            let total = 0;
-            const billingCycle = document.querySelector('input[name="billingCycle"]:checked').value;
+            let originalTotal = 0;
+            let discountPercentage = 0;
+            let couponApplied = false;
 
-            subscriptionCheckboxes.forEach((checkbox) => {
-                if (checkbox.checked) {
-                    const [name, monthlyPrice, yearlyPrice] = checkbox.value.split(',');
-                    total += billingCycle === 'monthly' ? parseFloat(monthlyPrice) : parseFloat(yearlyPrice);
-                }
-            });
-            totalAmountInput.value = total.toFixed(2);
-            totalAmountDisplay.textContent = total.toFixed(2);
-        }
+            function calculateTotal() {
+                let total = 0;
+                const billingCycle = document.querySelector('input[name="billingCycle"]:checked').value;
 
-        billingCycleRadios.forEach((radio) => radio.addEventListener('change', calculateTotal));
-        subscriptionCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', calculateTotal));
+                subscriptionCheckboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        const [name, monthlyPrice, yearlyPrice] = checkbox.value.split(',');
+                        total += billingCycle === 'monthly' ? parseFloat(monthlyPrice) : parseFloat(yearlyPrice);
+                    }
+                });
 
+                originalTotal = total;
+                originalPriceDisplay.textContent = total.toFixed(2);
 
-        $(document).ready(function() {
-            function checkCheckboxes() {
-                let isChecked = $('input[type="checkbox"]:checked').length > 0;
-                let $button = $('#subscriptionSubmit button');
-
-                if (isChecked) {
-                    $button.prop('disabled', false).removeClass('cursor-not-allowed').addClass('cursor-pointer');
+                // Apply discount if coupon is valid
+                if (couponApplied && discountPercentage > 0) {
+                    const discountAmount = (total * discountPercentage) / 100;
+                    total -= discountAmount;
+                    discountValueDisplay.textContent = discountAmount.toFixed(2);
+                    discountAmountInput.value = discountAmount.toFixed(2);
+                    discountInfo.classList.remove('hidden');
                 } else {
-                    $button.prop('disabled', true).removeClass('cursor-pointer').addClass('cursor-not-allowed');
+                    discountInfo.classList.add('hidden');
+                    discountAmountInput.value = '0';
                 }
+
+                totalAmountInput.value = total.toFixed(2);
+                totalAmountDisplay.textContent = total.toFixed(2);
             }
 
-            // Run check on page load
-            checkCheckboxes();
+            // Event listeners for subscription options
+            billingCycleRadios.forEach((radio) => radio.addEventListener('change', calculateTotal));
+            subscriptionCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', calculateTotal));
 
-            // Run check whenever any checkbox is clicked
-            $('input[type="checkbox"]').on('change', checkCheckboxes);
-
-            $('#subscriptionSubmit').submit(function(event) {
-                let $button = $('#subscriptionSubmit button');
-
-                if ($button.prop('disabled')) {
-                    event.preventDefault(); // Stop submission
+            // Apply coupon button click handler
+            document.getElementById('applyCoupon').addEventListener('click', function() {
+                const couponCode = document.getElementById('couponCode').value.trim();
+                
+                if (!couponCode) {
+                    showCouponMessage('showCouponMessage('Please enter a coupon code', 'text-red-500');
+                    return;
                 }
 
-                if (!$('#fullWill').prop('checked')) {
-                    alert('Please check the Full Will option before proceeding.');
-                    event.preventDefault(); // Prevent form submission
-                }
+                // Reset coupon state
+                couponApplied = false;
+                discountPercentage = 0;
+                
+                // Call API to validate coupon
+                fetch(`/api/validate-coupon/${couponCode}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.valid) {
+                            couponApplied = true;
+                            discountPercentage = data.discount_percentage;
+                            appliedCouponInput.value = couponCode;
+                            showCouponMessage(`Coupon applied! ${discountPercentage}% discount`, 'text-green-600');
+                            calculateTotal();
+                        } else {
+                            showCouponMessage('Invalid coupon code', 'text-red-500');
+                            discountInfo.classList.add('hidden');
+                            calculateTotal();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error validating coupon:', error);
+                        showCouponMessage('Error validating coupon', 'text-red-500');
+                    });
             });
-        });
 
-        // Initial calculation
-        calculateTotal();
+            function showCouponMessage(message, className) {
+                couponMessageElement.textContent = message;
+                couponMessageElement.className = 'mt-2 text-sm ' + className;
+            }
 
-        function updateTotal() {
-            // Get all checkboxes
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            let total = 0;
+            $(document).ready(function() {
+                function checkCheckboxes() {
+                    let isChecked = $('input[type="checkbox"]:checked').length > 0;
+                    let $button = $('#subscriptionSubmit button');
 
-            // Calculate total
-            checkboxes.forEach((checkbox) => {
-                if (checkbox.checked && !isNaN(checkbox.value) && checkbox.value.trim() !== '') {
-                    total += parseFloat(checkbox.value);
+                    if (isChecked) {
+                        $button.prop('disabled', false).removeClass('cursor-not-allowed').addClass('cursor-pointer');
+                    } else {
+                        $button.prop('disabled', true).removeClass('cursor-pointer').addClass('cursor-not-allowed');
+                    }
                 }
+
+                // Run check on page load
+                checkCheckboxes();
+
+                // Run check whenever any checkbox is clicked
+                $('input[type="checkbox"]').on('change', checkCheckboxes);
+
+                $('#subscriptionSubmit').submit(function(event) {
+                    let $button = $('#subscriptionSubmit button');
+
+                    if ($button.prop('disabled')) {
+                        event.preventDefault(); // Stop submission
+                    }
+
+                    if (!$('#fullWill').prop('checked')) {
+                        alert('Please check the Full Will option before proceeding.');
+                        event.preventDefault(); // Prevent form submission
+                    }
+                });
             });
 
-            // Update total in the DOM
-            document.getElementById("oneTimeTotal").innerText = total.toFixed(2);
-            document.getElementById("buyButton").innerText = `Buy for $${total.toFixed(2)}`;
-            document.getElementById("totalAmount1").value = total.toFixed(2);
-        }
-    </script>
-</body>
+            // Initial calculation
+            calculateTotal();
 
-</html>
+            function updateTotal() {
+                // Get all checkboxes
+                const checkboxes = document.querySelectorAll('.payment-checkbox');
+                let total = 0;
+
+                // Calculate total
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked && !isNaN(checkbox.value) && checkbox.value.trim() !== '') {
+                        total += parseFloat(checkbox.value);
+                    }
+                });
+
+                // Update total in the DOM
+                document.getElementById("oneTimeTotal").innerText = total.toFixed(2);
+                document.getElementById("buyButton").innerText = `Buy for $${total.toFixed(2)}`;
+                document.getElementById("totalAmount1").value = total.toFixed(2);
+            }
+        </script>
+    </body>
+    </html>

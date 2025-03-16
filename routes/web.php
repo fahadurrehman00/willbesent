@@ -58,7 +58,7 @@ Route::get('/payment/checkout', [PaymentController::class, 'paymentPage'])->name
 Route::post('/payment/create-intent', [PaymentController::class, 'createPaymentIntent'])->name('paymentIntent');
 Route::get('payment/success', [PaymentController::class, 'handlePaymentSuccess'])->name('payment.success');
 Route::get('/cancel-subscription', [PaymentController::class, 'cancelSubscription'])->name('cancel.subscription');
-
+Route::get('/api/validate-coupon/{code}', [PaymentController::class, 'validateCoupon']);
 
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
 

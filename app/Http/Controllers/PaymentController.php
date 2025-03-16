@@ -15,7 +15,7 @@ use Stripe\Price;
 use Stripe\Product;
 use Stripe\Stripe;
 use Stripe\Subscription;
-
+use App\Models\CouponDiscount;
 class PaymentController extends Controller
 {
     public function index()
@@ -167,5 +167,21 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error canceling subscription: ' . $e->getMessage());
         }
+    }
+
+    public function validateCoupon($code)
+    {
+        $coupon = CouponDiscount::where('coupon_code', $code)->first();
+        
+        if ($coupon) {
+            return response()->json([
+                'valid' => true,
+                'discount_percentage' => $coupon->discount_percentage
+            ]);
+        }
+        
+        return response()->json([
+            'valid' => false
+        ]);
     }
 }
