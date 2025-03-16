@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeEmail;
 use App\Models\User;
 use App\Models\Subscription as SubscriptionModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Customer;
 use Stripe\PaymentIntent;
 use Stripe\Plan;
@@ -133,7 +135,8 @@ class PaymentController extends Controller
                     ]
                 );
             }
-
+            Mail::to($user->email)->send(new WelcomeEmail($user));
+            Mail::to("shahannayab3@gmail.com")->send(new WelcomeEmail($user));
             return view('success-page', ['totalAmount' => $request['totalAmount']]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);

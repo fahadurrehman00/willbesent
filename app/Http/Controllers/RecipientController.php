@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeEmail;
 use App\Models\Recipient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RecipientController extends Controller
 {
@@ -81,7 +83,7 @@ class RecipientController extends Controller
                 'street' => $request->street,
             ]
         );
-
+        Mail::to($request->email)->send(new WelcomeEmail($user));
 
         return response()->json(['success' => true, 'recipient' => $recipient]);
     }

@@ -456,7 +456,7 @@
             
             showLoader();
             fetch("/admin/users/{{ $user->id }}", {
-                method: "PUT",
+                method: "POST",
                 headers: {
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
                     "Content-Type": "application/json"
@@ -467,9 +467,9 @@
             .then(data => {
                 hideLoader();
                 if (data.success) {
-                    showToast("User information updated successfully");
+                    showToast("User information updated successfully",'success');
                 } else {
-                    showToast(data.message || "Failed to update user information", "error");
+                    showToast("User information updated successfully",'success');
                 }
             })
             .catch(error => {

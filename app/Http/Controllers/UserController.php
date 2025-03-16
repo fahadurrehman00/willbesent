@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CouponDiscount;
 use App\Models\Document;
 use App\Models\Recipient;
 use App\Models\User;
@@ -67,6 +68,17 @@ class UserController extends Controller
         ]);
     }
 
+    public function adminUpdateuser(Request $request, $id)
+    {
+        $user =User::find($id);
+        $user->update($request->all());
+
+        return response()->json([
+            'message' => 'Profile updated successfully!',
+            'user' => $user
+        ]);
+    }
+
 
     public function updateUser(Request $request)
     {
@@ -83,6 +95,50 @@ class UserController extends Controller
             return response()->json($user, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to fetch user details'], 500);
+        }
+    }
+
+    public function getAllCopon()
+    {
+        try {
+            $user = auth()->user();  // Get the logged-in user details
+            return response()->json($user, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to fetch user details'], 500);
+        }
+    }
+
+    public function storeCoupon(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'required',
+            'discount_percentage' => 'required',
+        ]);
+        $user = auth()->user();
+        $user_coupon = new CouponDiscount();
+        $user_coupon->coupon_code= $request->coupon_code;
+        $user_coupon->discount_percentage= $request->discount_percentage;
+        $user_coupon->user_id= $user->id;
+        $user_coupon->save();
+
+        return response()->json($user_coupon, 200);
+    }
+
+    public function deleteCoupon($id)
+    {
+        try {
+            $coupon = CouponDiscount::find($id);
+
+            if (!$coupon) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+
+            $coupon->delete();
+            return redirect()->back()->with('success', 'coupon deleted successfully.');
+
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete coupon'], 500);
         }
     }
 
@@ -116,7 +172,32 @@ class UserController extends Controller
 
         public function adminProfile()
     {
-        return view('admin.admin-profile');
+        $coupon= CouponDiscount::all();
+        $user= auth()->user();
+        return view('admin.admin-profile', ['coupon' => $coupon, 'user' => $user]);
     }
+
+    public function adminProfileUpdate(Request $request,$id)
+    {
+        $user = User::where('id', $id)->first();
+        $user_data['firstname'] = $request->firstname;
+        $user_data['lastname'] = $request->lastname;
+        $user_data['email'] = $request->email;
+        $user_data['phone'] = $request->phone;
+
+        if ($request->hasfile('profileImage')) {
+            $file = $request->file('profileImage');
+            $extension = $file->getClientOriginalName();
+            $filename = time() . '.' . $extension;
+            $file->move(base_path('public/images/userProfile'), $filename);
+            $user_data['profile_image'] = $filename;
+        } else {
+            $user_data['profile_image'] = $request->old_image;
+        }
+        $user->update($user_data);
+        return redirect()->route('admin.profile');
+
+    }
+
 }
 
