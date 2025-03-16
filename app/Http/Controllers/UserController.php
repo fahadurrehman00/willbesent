@@ -142,6 +142,23 @@ class UserController extends Controller
         }
     }
 
+    public function adminDeleteUser($id)
+    {
+        try {
+            $user = User::find($id);
+
+            if (!$user) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+
+            $user->delete();
+            return response()->json(['message' => 'User deleted successfully'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete coupon'], 500);
+        }
+    }
+
     public function deleteUser($id)
     {
         try {
@@ -161,7 +178,6 @@ class UserController extends Controller
     public function userDetails($id)
     {
         $user = User::with(['documents', 'recipients','subscriptions','transactions'])->find($id);
-
         if (!$user) {
             return redirect()->route('admin.dashboard')->with('error', 'User not found.');
         }

