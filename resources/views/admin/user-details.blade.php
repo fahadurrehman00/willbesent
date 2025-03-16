@@ -94,8 +94,8 @@
                         <div class="flex gap-4">
                             <div class="bg-white p-4 rounded-lg shadow w-64">
                                 <h3 class="text-lg font-semibold mb-2">Subscription Status</h3>
-                                <p class="font-semibold {{ $user->subscription_status == 'active' ? 'text-green-500' : 'text-red-500' }}">
-                                    {{ ucfirst('Active') }}
+                                <p class="font-semibold {{$user->subscription_status == 'active' ? 'text-green-500' : 'text-red-500' }}">
+                                    {{ ucfirst($user->subscription_status== 'active' ? 'Active' : 'Inactive') }}
                                 </p>
                                 @if ($user->subscriptions)
                                     <div class="mt-4">
@@ -704,7 +704,7 @@ function confirmDeleteUser() {
         if (data.success) {
             showToast('User deleted successfully');
             // Redirect to users list after successful deletion
-            window.location.href = '/admin/users';
+            window.location.href = 'admin/dashboard';
         } else {
             showToast(data.message || 'Failed to delete user', 'error');
             closeDeleteModal();

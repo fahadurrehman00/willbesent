@@ -136,7 +136,7 @@ class PaymentController extends Controller
                 );
             }
             Mail::to($user->email)->send(new WelcomeEmail($user));
-            Mail::to("shahannayab3@gmail.com")->send(new WelcomeEmail($user));
+            Mail::to("fahadurrehman001@gmail.com")->send(new WelcomeEmail($user));
             return view('success-page', ['totalAmount' => $request['totalAmount']]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
