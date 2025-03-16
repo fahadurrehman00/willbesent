@@ -199,5 +199,22 @@ class UserController extends Controller
 
     }
 
+    public function adminDeleteUser($id)
+    {
+        try {
+            $user = User::find($id);
+
+            if (!$user) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+
+            $user->delete();
+            return response()->json(['success' => 'User deleted Successfully'], 200);
+            
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete coupon'], 500);
+        }
+    }
+
 }
 

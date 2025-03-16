@@ -26,6 +26,7 @@ Route::post('/api/admin/save-coupon', [UserController::class, 'storeCoupon'])->n
 Route::get('/api/admin/delete-coupon/${couponIdToDelete}', [UserController::class, 'deleteCoupon'])->name('delete-coupon');
 Route::post('/admin/users/{id}', [UserController::class, 'adminUpdateuser'])->name('admin.updateuser');
 Route::post('/admin/profile-update/{id}', [UserController::class, 'adminProfileUpdate'])->name('admin-profile-update');
+Route::delete('/admin/users/{id}', [UserController::class, 'adminDeleteUser'])->name('admin.deleteuser');
 
 Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile')
 ;Route::get('/admin/profile', [UserController::class, 'adminProfile'])->name('admin.profile');
