@@ -223,146 +223,146 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script>
             const billingCycleRadios = document.querySelectorAll('input[name="billingCycle"]');
-            const subscriptionCheckboxes = document.querySelectorAll('input[name="subscription[]"]');
-            const totalAmountInput = document.getElementById('totalAmount');
-            const totalAmountDisplay = document.getElementById('subscriptionTotal');
-            const originalPriceDisplay = document.getElementById('originalPrice');
-            const discountValueDisplay = document.getElementById('discountValue');
-            const discountInfo = document.getElementById('discountInfo');
-            const discountAmountInput = document.getElementById('discountAmount');
-            const appliedCouponInput = document.getElementById('appliedCoupon');
-            const couponMessageElement = document.getElementById('couponMessage');
+const subscriptionCheckboxes = document.querySelectorAll('input[name="subscription[]"]');
+const totalAmountInput = document.getElementById('totalAmount');
+const totalAmountDisplay = document.getElementById('subscriptionTotal');
+const originalPriceDisplay = document.getElementById('originalPrice');
+const discountValueDisplay = document.getElementById('discountValue');
+const discountInfo = document.getElementById('discountInfo');
+const discountAmountInput = document.getElementById('discountAmount');
+const appliedCouponInput = document.getElementById('appliedCoupon');
+const couponMessageElement = document.getElementById('couponMessage');
 
-            let originalTotal = 0;
-            let discountPercentage = 0;
-            let couponApplied = false;
+let originalTotal = 0;
+let discountPercentage = 0;
+let couponApplied = false;
 
-            function calculateTotal() {
-                let total = 0;
-                const billingCycle = document.querySelector('input[name="billingCycle"]:checked').value;
+function calculateTotal() {
+    let total = 0;
+    const billingCycle = document.querySelector('input[name="billingCycle"]:checked').value;
 
-                subscriptionCheckboxes.forEach((checkbox) => {
-                    if (checkbox.checked) {
-                        const [name, monthlyPrice, yearlyPrice] = checkbox.value.split(',');
-                        total += billingCycle === 'monthly' ? parseFloat(monthlyPrice) : parseFloat(yearlyPrice);
-                    }
-                });
+    subscriptionCheckboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            const [name, monthlyPrice, yearlyPrice] = checkbox.value.split(',');
+            total += billingCycle === 'monthly' ? parseFloat(monthlyPrice) : parseFloat(yearlyPrice);
+        }
+    });
 
-                originalTotal = total;
-                originalPriceDisplay.textContent = total.toFixed(2);
+    originalTotal = total;
+    originalPriceDisplay.textContent = total.toFixed(2);
 
-                // Apply discount if coupon is valid
-                if (couponApplied && discountPercentage > 0) {
-                    const discountAmount = (total * discountPercentage) / 100;
-                    total -= discountAmount;
-                    discountValueDisplay.textContent = discountAmount.toFixed(2);
-                    discountAmountInput.value = discountAmount.toFixed(2);
-                    discountInfo.classList.remove('hidden');
-                } else {
-                    discountInfo.classList.add('hidden');
-                    discountAmountInput.value = '0';
-                }
+    // Apply discount if coupon is valid
+    if (couponApplied && discountPercentage > 0) {
+        const discountAmount = (total * discountPercentage) / 100;
+        total -= discountAmount;
+        discountValueDisplay.textContent = discountAmount.toFixed(2);
+        discountAmountInput.value = discountAmount.toFixed(2);
+        discountInfo.classList.remove('hidden');
+    } else {
+        discountInfo.classList.add('hidden');
+        discountAmountInput.value = '0';
+    }
 
-                totalAmountInput.value = total.toFixed(2);
-                totalAmountDisplay.textContent = total.toFixed(2);
+    totalAmountInput.value = total.toFixed(2);
+    totalAmountDisplay.textContent = total.toFixed(2);
+}
+
+// Event listeners for subscription options
+billingCycleRadios.forEach((radio) => radio.addEventListener('change', calculateTotal));
+subscriptionCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', calculateTotal));
+
+// Apply coupon button click handler
+document.getElementById('applyCoupon').addEventListener('click', function() {
+    const couponCode = document.getElementById('couponCode').value.trim();
+    
+    if (!couponCode) {
+        showCouponMessage('Please enter a coupon code', 'text-red-500');
+        return;
+    }
+
+    // Reset coupon state
+    couponApplied = false;
+    discountPercentage = 0;
+    
+    // Call API to validate coupon
+    fetch(`/api/validate-coupon/${couponCode}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.valid) {
+                couponApplied = true;
+                discountPercentage = data.discount_percentage;
+                appliedCouponInput.value = couponCode;
+                showCouponMessage(`Coupon applied! ${discountPercentage}% discount`, 'text-green-600');
+                calculateTotal();
+            } else {
+                showCouponMessage('Invalid coupon code', 'text-red-500');
+                discountInfo.classList.add('hidden');
+                calculateTotal();
             }
+        })
+        .catch(error => {
+            console.error('Error validating coupon:', error);
+            showCouponMessage('Error validating coupon', 'text-red-500');
+        });
+});
 
-            // Event listeners for subscription options
-            billingCycleRadios.forEach((radio) => radio.addEventListener('change', calculateTotal));
-            subscriptionCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', calculateTotal));
+function showCouponMessage(message, className) {
+    couponMessageElement.textContent = message;
+    couponMessageElement.className = 'mt-2 text-sm ' + className;
+}
 
-            // Apply coupon button click handler
-            document.getElementById('applyCoupon').addEventListener('click', function() {
-                const couponCode = document.getElementById('couponCode').value.trim();
-                
-                if (!couponCode) {
-                    showCouponMessage('showCouponMessage('Please enter a coupon code', 'text-red-500');
-                    return;
-                }
+$(document).ready(function() {
+    function checkCheckboxes() {
+        let isChecked = $('input[type="checkbox"]:checked').length > 0;
+        let $button = $('#subscriptionSubmit button');
 
-                // Reset coupon state
-                couponApplied = false;
-                discountPercentage = 0;
-                
-                // Call API to validate coupon
-                fetch(`/api/validate-coupon/${couponCode}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.valid) {
-                            couponApplied = true;
-                            discountPercentage = data.discount_percentage;
-                            appliedCouponInput.value = couponCode;
-                            showCouponMessage(`Coupon applied! ${discountPercentage}% discount`, 'text-green-600');
-                            calculateTotal();
-                        } else {
-                            showCouponMessage('Invalid coupon code', 'text-red-500');
-                            discountInfo.classList.add('hidden');
-                            calculateTotal();
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error validating coupon:', error);
-                        showCouponMessage('Error validating coupon', 'text-red-500');
-                    });
-            });
+        if (isChecked) {
+            $button.prop('disabled', false).removeClass('cursor-not-allowed').addClass('cursor-pointer');
+        } else {
+            $button.prop('disabled', true).removeClass('cursor-pointer').addClass('cursor-not-allowed');
+        }
+    }
 
-            function showCouponMessage(message, className) {
-                couponMessageElement.textContent = message;
-                couponMessageElement.className = 'mt-2 text-sm ' + className;
-            }
+    // Run check on page load
+    checkCheckboxes();
 
-            $(document).ready(function() {
-                function checkCheckboxes() {
-                    let isChecked = $('input[type="checkbox"]:checked').length > 0;
-                    let $button = $('#subscriptionSubmit button');
+    // Run check whenever any checkbox is clicked
+    $('input[type="checkbox"]').on('change', checkCheckboxes);
 
-                    if (isChecked) {
-                        $button.prop('disabled', false).removeClass('cursor-not-allowed').addClass('cursor-pointer');
-                    } else {
-                        $button.prop('disabled', true).removeClass('cursor-pointer').addClass('cursor-not-allowed');
-                    }
-                }
+    $('#subscriptionSubmit').submit(function(event) {
+        let $button = $('#subscriptionSubmit button');
 
-                // Run check on page load
-                checkCheckboxes();
+        if ($button.prop('disabled')) {
+            event.preventDefault(); // Stop submission
+        }
 
-                // Run check whenever any checkbox is clicked
-                $('input[type="checkbox"]').on('change', checkCheckboxes);
+        if (!$('#fullWill').prop('checked')) {
+            alert('Please check the Full Will option before proceeding.');
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+});
 
-                $('#subscriptionSubmit').submit(function(event) {
-                    let $button = $('#subscriptionSubmit button');
+// Initial calculation
+calculateTotal();
 
-                    if ($button.prop('disabled')) {
-                        event.preventDefault(); // Stop submission
-                    }
+function updateTotal() {
+    // Get all checkboxes
+    const checkboxes = document.querySelectorAll('.payment-checkbox');
+    let total = 0;
 
-                    if (!$('#fullWill').prop('checked')) {
-                        alert('Please check the Full Will option before proceeding.');
-                        event.preventDefault(); // Prevent form submission
-                    }
-                });
-            });
+    // Calculate total
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked && !isNaN(checkbox.value) && checkbox.value.trim() !== '') {
+            total += parseFloat(checkbox.value);
+        }
+    });
 
-            // Initial calculation
-            calculateTotal();
-
-            function updateTotal() {
-                // Get all checkboxes
-                const checkboxes = document.querySelectorAll('.payment-checkbox');
-                let total = 0;
-
-                // Calculate total
-                checkboxes.forEach((checkbox) => {
-                    if (checkbox.checked && !isNaN(checkbox.value) && checkbox.value.trim() !== '') {
-                        total += parseFloat(checkbox.value);
-                    }
-                });
-
-                // Update total in the DOM
-                document.getElementById("oneTimeTotal").innerText = total.toFixed(2);
-                document.getElementById("buyButton").innerText = `Buy for $${total.toFixed(2)}`;
-                document.getElementById("totalAmount1").value = total.toFixed(2);
-            }
+    // Update total in the DOM
+    document.getElementById("oneTimeTotal").innerText = total.toFixed(2);
+    document.getElementById("buyButton").innerText = `Buy for $${total.toFixed(2)}`;
+    document.getElementById("totalAmount1").value = total.toFixed(2);
+}
         </script>
     </body>
     </html>
