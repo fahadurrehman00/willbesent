@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\WelcomeEmail;
+use App\Mail\AdminRecipentMail;
+use App\Mail\RecipentMail;
 use App\Models\Recipient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,8 +84,8 @@ class RecipientController extends Controller
                 'street' => $request->street,
             ]
         );
-        Mail::to($request->email)->send(new WelcomeEmail($user));
-        Mail::to("fahadurrehman001@gmail.com")->send(new WelcomeEmail($user));
+        Mail::to($request->email)->send(new RecipentMail($user));
+        Mail::to("fahadurrehman001@gmail.com")->send(new AdminRecipentMail($user));
         return response()->json(['success' => true, 'recipient' => $recipient]);
     }
 
