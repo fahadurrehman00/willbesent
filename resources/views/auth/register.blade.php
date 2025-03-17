@@ -53,6 +53,7 @@
                             <input type="tel" name="phone" placeholder="Phone"
        class="px-4 py-3 border border-gray-300 rounded-lg w-full md:w-1/2 focus:outline-none focus:border-black mt-4 md:mt-0"
        required
+       value="+"
        pattern="^\+\d{11}$"
        maxlength="12"
        title="Phone number must start with '+' and be 12 digits long." />
