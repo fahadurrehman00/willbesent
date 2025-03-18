@@ -94,8 +94,8 @@
                         <div class="flex gap-4">
                             <div class="bg-white p-4 rounded-lg shadow w-64">
                                 <h3 class="text-lg font-semibold mb-2">Subscription Status</h3>
-                                <p class="font-semibold {{$user->subscription_status == 'active' ? 'text-green-500' : 'text-red-500' }}">
-                                {{ ucfirst('Active') }}
+                                <p class="font-semibold {{isset($user->subscriptions[0]) && isset($user->subscriptions[0]->fullWill) && $user->subscriptions[0]->fullWill == '1' ? 'text-green-500' : 'text-red-500' }}">
+                                {{ isset($user->subscriptions[0]) && isset($user->subscriptions[0]->fullWill) && $user->subscriptions[0]->fullWill == '1' ? 'Active' : 'inactive' }}
                                 </p>
                                 @if ($user->subscriptions)
                                     <div class="mt-4">
