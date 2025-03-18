@@ -9,22 +9,16 @@
 <body>
 <p class="text-lg font-medium">Hey {{ $recipient->name }},</p>
 <p class="mt-4">
-    We wanted to reach out and introduce ourselves! Here at Will Be Sent, we offer our customers the tools needed to not only build a will but also have state-of-the-art will storage and distribution. 
+We wanted to reach out and introduce ourselves! Here at Will Be Sent, we offer our customers with the tools needed to not only build a will but to have state of the art will storage and distribution. We use a number of processes to offer customers with the ability to have their wills, trusts, power of attorney, or any other documents needed. 
 </p>
 <p class="mt-4">
     Much like the trust that {{ $customer->firstname }} {{ $customer->lastname }} has placed in you to make sure their wishes are followed, they trust us to ensure that, when needed, we get the documents over to you. 
     {{ $customer->firstname }} has added you as a recipient to their documents on our platform.
+    For now, there’s nothing you need to do, however, if you would like to create an account and make sure that your family’s documents are protected, you can sign up by <a href="https://willbesent.com" target="_blank">[clicking here]</a>.
+
 </p>
-
-<!-- Display recipient details -->
-<p class="mt-6"><strong>Your Details:</strong></p>
-<ul class="mt-2">
-    <li><strong>Name:</strong> {{ $recipient->name }}</li>
-    <li><strong>Email:</strong> {{ $recipient->email }}</li>
-    <li><strong>Phone:</strong> {{ $recipient->mobile }}</li>
-</ul>
-
-<p class="mt-6">Use this discount code to get 10% off the subscription price:</p>
+<p class="mt-6">You can also use this discount to get 10% off the subscription price! 
+</p>
 <p><strong>Discount Code: WBSRECPT25</strong></p>
 <p>
     If you have any questions, please let me know! I’m here to help you protect your family!

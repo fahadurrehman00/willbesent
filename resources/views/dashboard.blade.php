@@ -289,7 +289,7 @@
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    alert("Something went wrong. Please try again.");
+                    // alert("Something went wrong. Please try again.");
                 });
         });
 
