@@ -13,25 +13,24 @@
     <div class="p-6 text-gray-700">
         <p class="text-lg font-medium">Hello {{ $user->firstname }},</p>
         <p class="mt-4">
-            Congratulations! You have successfully purchased a subscription for <span class="font-semibold">Will Be Sent</span>.
+        We wanted to inform you that has successfully purchased a subscription for Will Be Sent.
         </p>
         <p class="mt-4">
-            Your subscription grants you access to premium features and ensures your documents are securely managed.
+        This subscription grants them access to premium features and ensures their documents are securely managed.
         </p>
 
         <!-- CTA Button -->
         <div class="text-center mt-6">
             <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium shadow-md hover:bg-blue-700 transition">
-                Go to Dashboard
+            View Subscription Details
             </a>
         </div>
 
-        <p class="mt-6">If you have any questions or need assistance, feel free to contact our support team.</p>
-
-        <!-- Signature -->
-        <p class="mt-4 font-medium">Best Regards,</p>
-        <p class="text-gray-600">Will Be Sent Team</p>
-        <p class="text-gray-600">support@willbesent.com</p>
+            <!-- Signature -->
+            <p class="mt-4 font-medium">Cheers,</p>
+            <p class="text-gray-600">Elizabeth H.</p>
+            <p class="text-gray-600">Head of Customer Onboarding</p>
+            <p class="text-gray-600">help@willbesent.com</p>
     </div>
 
     <!-- Footer -->
