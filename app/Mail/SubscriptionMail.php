@@ -21,6 +21,7 @@ class SubscriptionMail extends Mailable
     public function build()
     {
         return $this->subject('Subscription')
-            ->view('emails.subscription');
+            ->view('emails.subscription')
+            ->with(['user' => $this->user]);
     }
 }
