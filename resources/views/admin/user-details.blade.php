@@ -704,7 +704,10 @@ function confirmDeleteUser() {
         if (data.success) {
             showToast('User deleted successfully');
             // Redirect to users list after successful deletion
-            window.location.href = 'admin/dashboard';
+            setTimeout(() => {
+                window.location.href = 'admin/dashboard';
+    }, 100);
+           
         } else {
             showToast(data.message || 'Failed to delete user', 'error');
             closeDeleteModal();
