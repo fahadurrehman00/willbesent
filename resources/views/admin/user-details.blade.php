@@ -148,13 +148,13 @@
                         <div class="bg-white p-6 rounded shadow">
                             <div class="flex justify-between items-center mb-4">
                                 <h2 class="text-lg font-semibold">Will Documents</h2>
-                                <div class="border-2 border-dashed border-gray-300 rounded p-2 flex items-center justify-center text-gray-500 cursor-pointer"
+                                <!-- <div class="border-2 border-dashed border-gray-300 rounded p-2 flex items-center justify-center text-gray-500 cursor-pointer"
                                     onclick="document.getElementById('willUpload').click()">
                                     <i class="fas fa-plus mr-2"></i>
                                     <span>Upload Will</span>
                                     <input type="file" id="willUpload" accept=".pdf,.doc,.docx" class="hidden"
                                         onchange="uploadDocumentAjax(this, 'will')" />
-                                </div>
+                                </div> -->
                             </div>
                             <div class="flex flex-col gap-4 pt-2">
                                 @forelse ($user->documents->where('documnet_type', 'will') as $doc)
@@ -169,10 +169,10 @@
                                                 target="_blank" onclick="viewDocument('{{ $doc->path }}')">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <button class="text-red-500 hover:text-red-700" 
+                                            <!-- <button class="text-red-500 hover:text-red-700" 
                                                 onclick="deleteDocument({{ $doc->id }})">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </button> -->
                                         </div>
                                     </div>
                                 @empty
@@ -185,24 +185,24 @@
                         <div class="bg-white p-6 rounded shadow">
                             <div class="flex justify-between items-center mb-4">
                                 <h2 class="text-lg font-semibold">Will Recipients</h2>
-                                <button
+                                <!-- <button
                                     class="bg-[#415a77] text-white px-3 py-1 rounded hover:bg-[#f47d61] transition-all duration-300"
                                     onclick="openPopup('will-popup', 'will')">
                                     <i class="fas fa-plus mr-1"></i> Add Recipient
-                                </button>
+                                </button> -->
                             </div>
                             
                             <div class="space-y-4">
                                 @forelse ($user->recipients->where('type', 'will') as $recipient)
                                     <div class="bg-gray-100 p-3 rounded shadow relative group">
-                                        <div class="absolute right-2 top-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <!-- <div class="absolute right-2 top-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button class="text-blue-500 hover:text-blue-700 editRecipient" data-id="{{ $recipient->id }}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="text-red-500 hover:text-red-700" onclick="deleteRecipient({{ $recipient->id }})">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </div>
+                                        </div> -->
                                         <p class="recipient-name font-semibold">{{ $recipient->name ?? 'N/A' }}</p>
                                         <p class="recipient-mobile text-sm text-gray-600">{{ $recipient->mobile ?? 'N/A' }}</p>
                                         <p class="recipient-email text-sm text-gray-600">{{ $recipient->email ?? 'N/A' }}</p>
@@ -222,13 +222,13 @@
                         <div class="bg-white p-6 rounded shadow">
                             <div class="flex justify-between items-center mb-4">
                                 <h2 class="text-lg font-semibold">Power of Attorney Documents</h2>
-                                <div class="border-2 border-dashed border-gray-300 rounded p-2 flex items-center justify-center text-gray-500 cursor-pointer"
+                                <!-- <div class="border-2 border-dashed border-gray-300 rounded p-2 flex items-center justify-center text-gray-500 cursor-pointer"
                                     onclick="document.getElementById('poaUpload').click()">
                                     <i class="fas fa-plus mr-2"></i>
                                     <span>Upload POA</span>
                                     <input type="file" id="poaUpload" accept=".pdf,.doc,.docx" class="hidden"
                                         onchange="uploadDocumentAjax(this, 'attorny')" />
-                                </div>
+                                </div> -->
                             </div>
                             <div class="flex flex-col gap-4 pt-2">
                                 @forelse ($user->documents->where('documnet_type', 'attorny') as $doc)
@@ -243,10 +243,10 @@
                                                 target="_blank" onclick="viewDocument('{{ $doc->path }}')">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <button class="text-red-500 hover:text-red-700" 
+                                            <!-- <button class="text-red-500 hover:text-red-700" 
                                                 onclick="deleteDocument({{ $doc->id }})">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </button> -->
                                         </div>
                                     </div>
                                 @empty
@@ -259,23 +259,23 @@
                         <div class="bg-white p-6 rounded shadow">
                             <div class="flex justify-between items-center mb-4">
                                 <h2 class="text-lg font-semibold">Power of Attorney Recipients</h2>
-                                <button
+                                <!-- <button
                                     class="bg-[#415a77] text-white px-3 py-1 rounded hover:bg-[#f47d61] transition-all duration-300"
                                     onclick="openPopup('attorny-popup', 'attorny')">
                                     <i class="fas fa-plus mr-1"></i> Add Recipient
-                                </button>
+                                </button> -->
                             </div>
                             
                             <div class="space-y-4">
                                 @forelse ($user->recipients->where('type', 'attorny') as $recipient)
                                     <div class="bg-gray-100 p-3 rounded shadow relative group">
                                         <div class="absolute right-2 top-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button class="text-blue-500 hover:text-blue-700 editRecipient" data-id="{{ $recipient->id }}">
+                                            <!-- <button class="text-blue-500 hover:text-blue-700 editRecipient" data-id="{{ $recipient->id }}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="text-red-500 hover:text-red-700" onclick="deleteRecipient({{ $recipient->id }})">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </button> -->
                                         </div>
                                         <p class="recipient-name font-semibold">{{ $recipient->name ?? 'N/A' }}</p>
                                         <p class="recipient-mobile text-sm text-gray-600">{{ $recipient->mobile ?? 'N/A' }}</p>
