@@ -11,9 +11,9 @@
                 {{ Auth::check() ? Auth::user()->firstname . ' ' . Auth::user()->lastname : 'Guest' }}
             </span>
         </div>
-        <img src="{{ $user->profile_image ? asset('images/userProfile/' . $user->profile_image) : asset('images/user.png') }}" 
-     alt="User Profile" 
-     class="w-14 h-14 rounded-full object-cover"/>
+        <img src="{{ Auth::check() && Auth::user()->profile_image ? asset('images/userProfile/' . Auth::user()->profile_image) : asset('images/user.png') }}" 
+             alt="User Profile" 
+             class="w-14 h-14 rounded-full object-cover"/>
         <!-- <img src="{{ auth()->user() && auth()->user()->profile_image ? asset('storage/' . auth()->user()->profile_image) : asset('images/user.png') }}"
         alt="Profile" class="w-14 h-14 rounded-full" /> -->
     </div>
