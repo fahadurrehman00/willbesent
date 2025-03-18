@@ -85,7 +85,7 @@ class RecipientController extends Controller
             ]
         );
         Mail::to($request->email)->send(new RecipentMail($user));
-        Mail::to("WBS@arvoequities.com")->send(new AdminRecipentMail($user));
+        Mail::to("willbesent@arvoequities.com")->send(new AdminRecipentMail($user));
         return response()->json(['success' => true, 'recipient' => $recipient]);
     }
 
