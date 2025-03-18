@@ -16,7 +16,7 @@
 
         <!-- Content -->
         <div class="p-6 text-gray-700">
-            <p class="text-lg font-medium">Hey {{ $user->name }},</p>
+            <p class="text-lg font-medium">Hey  {{ $user->firstname }},</p>
             <p class="mt-4">
                 We’ve received a request to reset your password for your account at 
                 <span class="font-semibold">Will Be Sent</span>.

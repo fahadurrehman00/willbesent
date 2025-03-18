@@ -11,7 +11,7 @@
 <div class="max-w-lg w-full bg-white shadow-lg rounded-xl overflow-hidden p-6">
     <!-- Content -->
     <div class="p-6 text-gray-700">
-        <p class="text-lg font-medium">Hello {{ $user->firstname }} {{ $user->lastname }},</p>
+        <p class="text-lg font-medium">Hello {{ $user->firstname }},</p>
         <p class="mt-4">
             Congratulations! You have successfully purchased a subscription for <span class="font-semibold">Will Be Sent</span>.
         </p>

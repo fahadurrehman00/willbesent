@@ -3,41 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipient Added Successfully</title>
+    <title>You’re Now A Recipient On Will Be Sent</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body>
+<p class="text-lg font-medium">Hey {{ $recipient->name }},</p>
+<p class="mt-4">
+    We wanted to reach out and introduce ourselves! Here at Will Be Sent, we offer our customers the tools needed to not only build a will but also have state-of-the-art will storage and distribution. 
+</p>
+<p class="mt-4">
+    Much like the trust that {{ $customer->firstname }} {{ $customer->lastname }} has placed in you to make sure their wishes are followed, they trust us to ensure that, when needed, we get the documents over to you. 
+    {{ $customer->firstname }} has added you as a recipient to their documents on our platform.
+</p>
 
-<div class="max-w-lg w-full bg-white shadow-lg rounded-xl overflow-hidden p-6">
-    <!-- Content -->
-    <div class="p-6 text-gray-700">
-        <p class="text-lg font-medium">Hello {{ $user->name }},</p>
-        <p class="mt-4">
-            Great news! You have successfully added <span class="font-semibold"> {{ $user->name }}</span> as a recipient in <span class="font-semibold">Will Be Sent</span>.
-        </p>
-        <p class="mt-4">
-            Your recipient will be notified and may now receive important information and documents as designated by you.
-        </p>
+<!-- Display recipient details -->
+<p class="mt-6"><strong>Your Details:</strong></p>
+<ul class="mt-2">
+    <li><strong>Name:</strong> {{ $recipient->name }}</li>
+    <li><strong>Email:</strong> {{ $recipient->email }}</li>
+    <li><strong>Phone:</strong> {{ $recipient->mobile }}</li>
+</ul>
 
-        <!-- CTA Button -->
-        <div class="text-center mt-6">
-            <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium shadow-md hover:bg-blue-700 transition">
-                Go to Dashboard
-            </a>
-        </div>
+<p class="mt-6">Use this discount code to get 10% off the subscription price:</p>
+<p><strong>Discount Code: WBSRECPT25</strong></p>
+<p>
+    If you have any questions, please let me know! I’m here to help you protect your family!
+</p>
+<p class="mt-6 font-medium">Cheers,</p>
+<p class="text-gray-600">Elizabeth H.</p>
+<p class="text-gray-600">Head of Customer Onboarding</p>
+<p class="text-gray-600">help@willbesent.com</p>
 
-        <p class="mt-6">If you have any questions or need assistance, feel free to contact our support team.</p>
-
-        <!-- Signature -->
-        <p class="mt-4 font-medium">Best Regards,</p>
-        <p class="text-gray-600">Will Be Sent Team</p>
-        <p class="text-gray-600">support@willbesent.com</p>
-    </div>
-
-    <!-- Footer -->
-    <div class="bg-gray-100 text-center text-sm text-gray-500 py-4 rounded-b-xl">
-        &copy; {{ date('Y') }} Will Be Sent. All rights reserved.
-    </div>
+<!-- Footer -->
+<div class="bg-gray-100 text-center text-sm text-gray-500 py-4 rounded-b-xl">
+    &copy; {{ date('Y') }} Will Be Sent. All rights reserved.
 </div>
 
 </body>

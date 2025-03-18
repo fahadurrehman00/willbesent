@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Recipient Added</title>
+    <title>WBS Recipient Added”</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -11,27 +11,25 @@
 <div class="max-w-lg w-full bg-white shadow-lg rounded-xl overflow-hidden p-6">
     <!-- Content -->
     <div class="p-6 text-gray-700">
-        <p class="text-lg font-medium">Hello Admin,</p>
+        <p class="text-lg font-medium">Hey team,</p>
         <p class="mt-4">
-            We wanted to inform you that <span class="font-semibold">{{ $user->name }}</span> has added <span class="font-semibold">{{ $user->name  }}</span> as a recipient in <span class="font-semibold">Will Be Sent</span>.
+        We just had the following recipient added. Please check the information below and let’s get started! 
         </p>
         <p class="mt-4">
             This means {{ $user->name  }} has been designated to receive important information and documents in the future.
         </p>
 
-        <!-- CTA Button -->
-        <div class="text-center mt-6">
-            <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium shadow-md hover:bg-blue-700 transition">
-                View Recipients
-            </a>
+        <p class="mt-6">Name: (FIRST LAST) </p>
+        <p class="mt-6">Email: (Email) </p>
+        <p class="mt-6">Phone: (Phone) </p>
+        <p class="mt-6">Address: (Address) </p>
+
+            <!-- Signature -->
+            <p class="mt-6 font-medium">Cheers,</p>
+            <p class="text-gray-600">Elizabeth H.</p>
+            <p class="text-gray-600">Head of Customer Onboarding</p>
+            <p class="text-gray-600">help@willbesent.com</p>
         </div>
-
-        <p class="mt-6">If you need to take any action, you can manage recipients from the admin dashboard.</p>
-
-        <!-- Signature -->
-        <p class="mt-4 font-medium">Best Regards,</p>
-        <p class="text-gray-600">Will Be Sent Team</p>
-        <p class="text-gray-600">admin@willbesent.com</p>
     </div>
 
     <!-- Footer -->

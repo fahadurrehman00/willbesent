@@ -13,7 +13,7 @@
     <div class="p-6 text-gray-700">
         <p class="text-lg font-medium">Hello Admin,</p>
         <p class="mt-4">
-            We wanted to inform you that <span class="font-semibold">{{ $user->name }}</span> has successfully purchased a subscription for <span class="font-semibold">Will Be Sent</span>.
+            We wanted to inform you that <span class="font-semibold"> {{ $user->firstname }}</span> has successfully purchased a subscription for <span class="font-semibold">Will Be Sent</span>.
         </p>
         <p class="mt-4">
             This subscription grants them access to premium features and ensures their documents are securely managed.

@@ -13,7 +13,6 @@ class RecipientController extends Controller
 {
     public function store(Request $request)
     {
-
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -26,15 +25,9 @@ class RecipientController extends Controller
         ]);
 
         $user = Auth::user();
+        $type = $request->input('poa-recipient') ?? 'will'; // Default to 'will' if null
 
-        if($request->id == null){
-            if ($request->input('poa-recipient') == null) {
-                $type = 'will';
-            } else {
-                $type = $request->input('poa-recipient');
-            }
-
-
+        // Check recipient limits
         $willCount = $user->recipients()->where('type', 'will')->count();
         $attorneyCount = $user->recipients()->where('type', 'attorny')->count();
 
@@ -51,27 +44,16 @@ class RecipientController extends Controller
                 'message' => 'You cannot upload more than two "attorney" recipients',
             ], 400);
         }
-        }
 
-        $recipientData = [
-            'user_id' => Auth::id(),
-            'name' => $request->firstname . ' ' . $request->lastname,
-            'mobile' => $request->phone,
-            'email' => $request->email,
-            'state' => $request->state,
-            'zip' => $request->zip,
-            'city' => $request->city,
-        ];
-
+        // If updating existing recipient, keep the previous type
         if ($request->id !== null) {
-            $rec = Recipient::where('id', $request->id)->first();
-            $type = $rec->type;
+            $existingRecipient = Recipient::find($request->id);
+            $type = $existingRecipient ? $existingRecipient->type : $type;
         }
 
+        // Create or update recipient
         $recipient = Recipient::updateOrCreate(
-            // Condition to check if the recipient exists
-            ['id' => $request->id], // Check if the recipient ID exists in the request
-            // Data to update or create
+            ['id' => $request->id],
             [
                 'user_id' => Auth::id(),
                 'name' => $request->firstname . ' ' . $request->lastname,
@@ -84,22 +66,34 @@ class RecipientController extends Controller
                 'street' => $request->street,
             ]
         );
-        Mail::to($request->email)->send(new RecipentMail($user));
-        Mail::to("willbesent@arvoequities.com")->send(new AdminRecipentMail($user));
+
+        // Send email to recipient and admin
+        Mail::to($recipient->email)->send(new RecipentMail($recipient, $user));
+        Mail::to("willbesent@arvoequities.com")->send(new AdminRecipentMail($recipient, $user));
+
         return response()->json(['success' => true, 'recipient' => $recipient]);
     }
 
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         $recipient = Recipient::find($request->id);
-        return response()->json(['success' => true,'recipient' => $recipient]);
+        if (!$recipient) {
+            return response()->json(['error' => true, 'message' => 'Recipient not found'], 404);
+        }
+        return response()->json(['success' => true, 'recipient' => $recipient]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'mobile' => 'required|string|max:15',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
             'email' => 'required|email',
+            'state' => 'required|string|max:255',
+            'zip' => 'required|string|max:10',
+            'city' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
         ]);
 
         $recipient = Recipient::findOrFail($id);
@@ -109,7 +103,6 @@ class RecipientController extends Controller
             'name' => $request->firstname . ' ' . $request->lastname,
             'mobile' => $request->phone,
             'email' => $request->email,
-            'type' => $type,
             'state' => $request->state,
             'zip' => $request->zip,
             'city' => $request->city,
@@ -121,10 +114,11 @@ class RecipientController extends Controller
 
     public function delete($id)
     {
-        Recipient::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Recipient deleted successfully.');
-    }
+        $recipient = Recipient::findOrFail($id);
+        $recipient->delete();
 
+        return response()->json(['success' => true, 'message' => 'Recipient deleted successfully.']);
+    }
 
     public function willlist()
     {
@@ -134,7 +128,6 @@ class RecipientController extends Controller
             ->get();
         return response()->json(['success' => true, 'recipients' => $recipients]);
     }
-
 
     public function list()
     {
