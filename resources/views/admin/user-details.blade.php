@@ -119,7 +119,7 @@
                                 <h3 class="text-lg font-semibold mb-2">Onetime Packages</h3>
                                 <p
                                     class="font-semibold {{ isset($user->transactions) && $user->transactions->first() && $user->transactions->first()->stripe_status == 'succeeded' ? 'text-green-500' : 'text-red-500' }}">
-                                    {{ ucfirst(isset($user->transactions) && $user->transactions->first() && $user->transactions->first()->stripe_status == 'succeeded' ? 'Active' : 'Inactive') }}
+                                    {{ ucfirst('Active') }}
                                 </p>
 
                                 @if ($user->transactions)
