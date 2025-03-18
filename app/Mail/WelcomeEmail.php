@@ -21,6 +21,7 @@ class WelcomeEmail extends Mailable
     public function build()
     {
         return $this->subject('Welcome to Will Be Sent')
-            ->view('emails.register');
+            ->view('emails.register')
+            ->with(['user' => $this->user]);
     }
 }

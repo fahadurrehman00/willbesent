@@ -16,7 +16,7 @@
 
         <!-- Content -->
         <div class="p-6 text-gray-700">
-            <p class="text-lg font-medium">Hey {{ Auth::user()->firstname }} {{ Auth::user()->lastname }},</p>
+            <p class="text-lg font-medium">Hey {{ $user->name }},</p>
             <p class="mt-4">
                 On behalf of the team here, I’d like to be the first to welcome you to
                 <span class="font-semibold">Will Be Sent</span>, the only way to produce and manage your will!
