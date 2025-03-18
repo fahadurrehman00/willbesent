@@ -1,4 +1,4 @@
-<header class="bg-[#f47d61] shadow-lg px-6 py-4 flex justify-between items-center">
+<header class="bg-[#415a77] shadow-lg px-6 py-4 flex justify-between items-center">
     <div class="flex items-center">
         <img src="{{ asset('images/WBS-Logo.png') }}" alt="Profile" class="h-14" />
     </div>
