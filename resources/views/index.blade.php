@@ -490,10 +490,9 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <div class="text-primary text-3xl">
-                                        <!-- FontAwesome Icon for User -->
+                                    <!-- <div class="text-primary text-3xl">
                                         <i class="fas fa-user-shield"></i>
-                                    </div>
+                                    </div> -->
                                     <div>
                                         <h3 class="text-lg font-semibold text-primary">
                                             Ethan W.
@@ -520,10 +519,9 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <div class="text-primary text-3xl">
-                                        <!-- FontAwesome Icon for User -->
+                                    <!-- <div class="text-primary text-3xl">
                                         <i class="fas fa-briefcase"></i>
-                                    </div>
+                                    </div> -->
                                     <div>
                                         <h3 class="text-lg font-semibold text-primary">
                                             Sophia B.
@@ -548,10 +546,9 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <div class="text-primary text-3xl">
-                                        <!-- FontAwesome Icon for User -->
+                                    <!-- <div class="text-primary text-3xl">
                                         <i class="fas fa-home"></i>
-                                    </div>
+                                    </div> -->
                                     <div>
                                         <h3 class="text-lg font-semibold text-primary">
                                             Jameson C.
@@ -576,10 +573,9 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <div class="text-primary text-3xl">
-                                        <!-- FontAwesome Icon for User -->
+                                    <!-- <div class="text-primary text-3xl">
                                         <i class="fas fa-users"></i>
-                                    </div>
+                                    </div> -->
                                     <div>
                                         <h3 class="text-lg font-semibold text-primary">
                                             Olivia M.
