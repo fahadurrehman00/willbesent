@@ -11,7 +11,7 @@
 <div class="max-w-lg w-full bg-white shadow-lg rounded-xl overflow-hidden p-6">
     <!-- Content -->
     <div class="p-6 text-gray-700">
-        <p class="text-lg font-medium">Hello Admin,</p>
+        <p class="text-lg font-medium">Hey team,</p>
         <p class="mt-4">
             We wanted to inform you that <span class="font-semibold"> {{ $user->firstname }}</span> has successfully purchased a subscription for <span class="font-semibold">Will Be Sent</span>.
         </p>
@@ -26,12 +26,11 @@
             </a>
         </div>
 
-        <p class="mt-6">You can manage user subscriptions from the admin dashboard.</p>
-
-        <!-- Signature -->
-        <p class="mt-4 font-medium">Best Regards,</p>
-        <p class="text-gray-600">Will Be Sent Team</p>
-        <p class="text-gray-600">admin@willbesent.com</p>
+            <!-- Signature -->
+            <p class="mt-4 font-medium">Cheers,</p>
+            <p class="text-gray-600">Elizabeth H.</p>
+            <p class="text-gray-600">Head of Customer Onboarding</p>
+            <p class="text-gray-600">help@willbesent.com</p>
     </div>
 
     <!-- Footer -->
