@@ -95,7 +95,7 @@
                             <div class="bg-white p-4 rounded-lg shadow w-64">
                                 <h3 class="text-lg font-semibold mb-2">Subscription Status</h3>
                                 <p class="font-semibold {{$user->subscription_status == 'active' ? 'text-green-500' : 'text-red-500' }}">
-                                    {{ ucfirst($user->subscription_status== 'active' ? 'Active' : 'Inactive') }}
+                                {{ ucfirst('Active') }}
                                 </p>
                                 @if ($user->subscriptions)
                                     <div class="mt-4">
@@ -119,7 +119,7 @@
                                 <h3 class="text-lg font-semibold mb-2">Onetime Packages</h3>
                                 <p
                                     class="font-semibold {{ isset($user->transactions) && $user->transactions->first() && $user->transactions->first()->stripe_status == 'succeeded' ? 'text-green-500' : 'text-red-500' }}">
-                                    {{ ucfirst('Active') }}
+                                    {{ ucfirst(isset($user->transactions) && $user->transactions->first() && $user->transactions->first()->stripe_status == 'succeeded' ? 'Active' : 'Inactive') }}
                                 </p>
 
                                 @if ($user->transactions)
