@@ -30,9 +30,9 @@
                     @csrf
                     <div class="relative w-24 h-24 mb-4">
                         <div class="relative">
-                            <img
-                                    src="{{asset('images/userProfile/'.$user->profile_image)}}"
-                                    alt="{{asset('images/user.png')}}" class="w-full h-full rounded-full object-cover">
+                        <img src="{{ Auth::check() && Auth::user()->profile_image ? asset('images/userProfile/' . Auth::user()->profile_image) : asset('images/user.png') }}" 
+             alt="User Profile" 
+             class="w-14 h-14 rounded-full object-cover"/>
                             <div id="loader"
                                  class="hidden absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 rounded-full">
                                 <div
