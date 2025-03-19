@@ -29,8 +29,11 @@ Route::delete('/admin/users/{id}', [UserController::class, 'adminDeleteUser'])->
 Route::post('/admin/profile-update/{id}', [UserController::class, 'adminProfileUpdate'])->name('admin-profile-update');
 
 
-Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile')
-;Route::get('/admin/profile', [UserController::class, 'adminProfile'])->name('admin.profile');
+Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
+Route::get('/admin/profile', [UserController::class, 'adminProfile'])->name('admin.profile');
+
+Route::get('/user/verification', [UserController::class, 'verificationView'])->name('user.verification');
+Route::post('/user/verify-pin', [UserController::class, 'verifyPin'])->name('user.verify-pin');
 
 
 Route::delete('/api/users/{id}', [UserController::class, 'deleteUser']);

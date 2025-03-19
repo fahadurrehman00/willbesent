@@ -214,6 +214,23 @@ class UserController extends Controller
         return redirect()->route('admin.profile');
 
     }
+    public function verificationView()
+    {
+        return view('verification');
+    }
+
+    public function verifyPin(Request $request)
+    {
+        $user = Auth::user();
+        $enteredPin = $request->pin1 . $request->pin2 . $request->pin3 . $request->pin4;
+        
+        if ($user->pincode == $enteredPin) {
+            $user->update(['userStatus' => true]);
+            return response()->json(['success' => true, 'message' => 'Verification successful']);
+        }
+        
+        return response()->json(['success' => false, 'message' => 'Invalid PIN code']);
+    }
 
 }
 
