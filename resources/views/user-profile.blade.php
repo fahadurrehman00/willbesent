@@ -67,6 +67,11 @@
                                 value="{{ Auth::user()->state }}" />
                         </div>
                         <div>
+                            <label class="block text-gray-600">State</label>
+                            <input type="text" name="pincode" class="w-full p-2 border border-gray-300 rounded-lg"
+                                value="{{ Auth::user()->pincode }}" />
+                        </div>
+                        <div>
                             <label class="block text-gray-600">Check-in Frequency</label>
                             <select name="frequency"
                                 class="px-4 py-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"

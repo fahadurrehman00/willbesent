@@ -59,9 +59,14 @@
        title="Phone number must start with '+' and be 12 digits long." />
 
                     </div>
+                    <div class="flex flex-col md:flex-row md:space-x-4">
                     <input type="password" name="password" placeholder="Password"
                         class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
                         required />
+                        <input type="pincode" name="pincode" placeholder="Pin Code"
+                        class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
+                        required />
+                    </div>
                     <div>
                         <input type="text" name="street" placeholder="Street"
                             class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"

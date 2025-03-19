@@ -30,6 +30,7 @@ class User extends Authenticatable
         'city',
         'frequency',
         'password',
+        'pincode',
         'profile_image',
         'message_time',
     ];

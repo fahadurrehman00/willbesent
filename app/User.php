@@ -32,6 +32,7 @@ class User extends Authenticatable
         'provider',
         'provider_id',
         'password',
+        'pincode',
         'is_admin',
         'role',
         'profile_picture',
