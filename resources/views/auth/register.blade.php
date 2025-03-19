@@ -65,7 +65,7 @@
                         required />
                         <input type="text" name="pincode" placeholder="Pin Code"
                             class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
-                            required pattern="\d{4}" maxlength="4" title="Pin Code must be exactly 4 digits" />
+                            required pattern="^\+\d{4}$" maxlength="4" title="Pin Code must be exactly 4 digits" />
 
                     </div>
                     <div>
@@ -168,7 +168,7 @@
 <!-- JavaScript to Enable Button on reCAPTCHA Check -->
 <script>
     document.querySelector('input[name="phone"]').addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^+\d]/g, ''); // Remove non-numeric characters except +
+    this.value = this.value.replace(/[^+\d]/g, ''); 
 });
 
     function enableSubmit() {
