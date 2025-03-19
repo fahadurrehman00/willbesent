@@ -56,12 +56,13 @@ class SendScheduledMessages extends Command
                 if ($shouldSendMessage && (!$lastMessageSentAt || !$lastMessageSentAt->isToday())) {
                     try {
                         $client->messages->create(
-                            "+18777804236", // User's phone number
+                            "+18777804236",
+                            // $user->phone_number,
                             [
                                 'from' => $twilioPhoneNumber,
-                                'body' => "Your scheduled message content here."
-                            ]
-                        );
+                                'body' => "Hello {$user->name}, please verify your account to continue using our services. Click the link below to verify your account: https://willbesent.com/user/verification"
+                                    ]
+                        );                        
 
                         $this->info("Message sent to {$user->phone_number}");
 
