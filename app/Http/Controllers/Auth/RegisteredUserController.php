@@ -45,6 +45,7 @@ class RegisteredUserController extends Controller
             'lastname' => $request->lastName,  // Corrected field from email to lastName
             'phone' => $request->phone,  // Added phone field
             'state' => $request->state,  // Added state field
+            'pincode' => $request->pincode,
             'zip' => $request->zip,  // Added zip field
             'street' => $request->street,  // Added street field
             'city' => $request->city,  // Added city field
