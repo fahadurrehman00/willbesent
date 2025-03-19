@@ -63,10 +63,10 @@
                     <input type="password" name="password" placeholder="Password"
                         class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
                         required />
-                        <input type="text" name="pincode" placeholder="Pin Code"
-                            class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
-                            required pattern="^\+\d{4}$" maxlength="4" title="Pin Code must be exactly 4 digits" />
-
+                        <input type="number" name="pincode" placeholder="Pin Code"
+    class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
+    required min="1000" max="9999"
+    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);" />
                     </div>
                     <div>
                         <input type="text" name="street" placeholder="Street"
