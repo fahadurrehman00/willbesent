@@ -67,7 +67,7 @@
                                 value="{{ Auth::user()->state }}" />
                         </div>
                         <div>
-                            <label class="block text-gray-600">State</label>
+                            <label class="block text-gray-600">Pin Code</label>
                             <input type="text" name="pincode" class="w-full p-2 border border-gray-300 rounded-lg"
                                 value="{{ Auth::user()->pincode }}" />
                         </div>
