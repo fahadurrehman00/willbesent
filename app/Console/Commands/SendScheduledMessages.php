@@ -56,7 +56,7 @@ class SendScheduledMessages extends Command
                 if ($shouldSendMessage && (!$lastMessageSentAt || !$lastMessageSentAt->isToday())) {
                     try {
                         $client->messages->create(
-                            "+18777804236",
+                            "+18153416531",
                             // $user->phone_number,
                             [
                                 'from' => $twilioPhoneNumber,
@@ -64,7 +64,8 @@ class SendScheduledMessages extends Command
                                     ]
                         );                        
 
-                        $this->info("Message sent to {$user->phone_number}");
+                        // $this->info("Message sent to {$user->phone_number}");
+                        $this->info("Message sent to +18153416531");
 
                         $user->update(['last_message_sent_at' => $now]);
                     } catch (\Exception $e) {

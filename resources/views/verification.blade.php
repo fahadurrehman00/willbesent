@@ -11,22 +11,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+    <div class="wrappper justify-center items-center h-screen">
     @include('components.user-header')
-    
-    <main class="flex justify-center items-center h-screen bg-gray-100">
-        <section class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
-            <h2 class="text-2xl font-semibold mb-4">Enter Pin Code to Verify</h2>
-            <div class="flex justify-center space-x-2 mb-4">
-                <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
-                <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
-                <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
-                <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
-            </div>
-            <button id="verifyBtn" class="bg-[#415A77] text-white px-6 py-2 rounded-lg hover:bg-[#F47D61] transition-all duration-300">Verify</button>
-        </section>
-    </main>
-    
-    @include('components.footer')
+        
+        <main class="flex justify-center items-center bg-gray-100 py-36">
+            <section class="bg-white p-6 rounded-lg shadow-lg w-[32rem] text-center">
+                <h2 class="text-2xl font-semibold mb-4">Enter Pin Code to Verify</h2>
+                <div class="flex justify-center space-x-2 mb-4">
+                    <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
+                    <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
+                    <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
+                    <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
+                </div>
+                <button id="verifyBtn" class="bg-[#415A77] text-white px-6 py-2 rounded-lg hover:bg-[#F47D61] transition-all duration-300">Verify</button>
+                <p class="text-sm mt-4 text-gray-700"> "Please enter your pin. If you're unable to do so, a member of our team will reach out shortly to confirm. You can change your pin or the frequency of this verification in your account. Please reach out to <a to="help@willbesent.com">help@willbesent.com</a> for assistance!"</p>
+            </section>
+        </main>
+        
+        @include('components.footer')
+    </div>
     
     <script>
        document.addEventListener("DOMContentLoaded", function() {
