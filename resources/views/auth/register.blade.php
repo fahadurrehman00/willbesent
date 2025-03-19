@@ -63,9 +63,10 @@
                     <input type="password" name="password" placeholder="Password"
                         class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
                         required />
-                        <input type="pincode" name="pincode" placeholder="Pin Code"
-                        class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
-                        required />
+                        <input type="text" name="pincode" placeholder="Pin Code"
+                            class="px-4 py-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-black"
+                            required pattern="\d{4}" maxlength="4" title="Pin Code must be exactly 4 digits" />
+
                     </div>
                     <div>
                         <input type="text" name="street" placeholder="Street"
