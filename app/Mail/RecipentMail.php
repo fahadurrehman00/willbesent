@@ -25,6 +25,7 @@ class RecipentMail extends Mailable
     {
         return $this->subject('WBS Recipient Added')
             ->view('emails.recipient')
+            // ->view('emails.admin-recipient')
             ->with([
                 'recipient' => $this->recipient,
                 'customer' => $this->customer

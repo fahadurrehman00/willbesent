@@ -16,10 +16,8 @@ We just had the following recipient added. Please check the information below an
     <li><strong>Name:</strong> {{ $recipient->name }}</li>
     <li><strong>Email:</strong> {{ $recipient->email }}</li>
     <li><strong>Phone:</strong> {{ $recipient->mobile }}</li>
+    <li><strong>Address:</strong> {{ $recipient->street }}, {{$recipient->city}},{{ $recipient->state}}</li>
 </ul>
-
-<p class="mt-6">Use this discount code to get 10% off the subscription price:</p>
-<p><strong>Discount Code: WBSRECPT25</strong></p>
 <p>
 Please make sure the recipient is added to the tracker.
 </p>
