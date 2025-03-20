@@ -214,10 +214,17 @@ class UserController extends Controller
         return redirect()->route('admin.profile');
 
     }
+
     public function verificationView()
     {
+        // if (!Auth::check()) {
+        //     return redirect()->route('login'); 
+        // }
+
+        $user = User::where('id', Auth::user()->id)->get();
         return view('verification');
     }
+
 
     public function verifyPin(Request $request)
     {

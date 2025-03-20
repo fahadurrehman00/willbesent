@@ -117,8 +117,7 @@ class RecipientController extends Controller
         $recipient = Recipient::findOrFail($id);
         $recipient->delete();
 
-        return response()->json(['success' => true, 'message' => 'Recipient deleted successfully.']);
-    }
+        return redirect()->route('dashboard')->with('recipient', $recipient);    }
 
     public function willlist()
     {

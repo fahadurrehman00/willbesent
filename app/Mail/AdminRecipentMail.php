@@ -12,15 +12,20 @@ class AdminRecipentMail extends Mailable
     use Queueable, SerializesModels;
 
     public $user;
+    public $recipient;
 
-    public function __construct($user)
+    public function __construct($user, $recipient)
     {
         $this->user = $user;
+        $this->recipient = $recipient;
     }
 
     public function build()
     {
         return $this->subject('Recipient Added')
-            ->view('emails.admin-recipent');
+            ->view('emails.admin-recipient')
+            ->with([
+                'recipient' => $this->recipient
+            ]);
     }
 }

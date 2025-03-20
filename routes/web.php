@@ -13,6 +13,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user/verification', [UserController::class, 'verificationView'])->middleware(['auth', 'verified'])->name('verification');
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,7 +33,6 @@ Route::post('/admin/profile-update/{id}', [UserController::class, 'adminProfileU
 Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
 Route::get('/admin/profile', [UserController::class, 'adminProfile'])->name('admin.profile');
 
-Route::get('/user/verification', [UserController::class, 'verificationView'])->name('user.verification');
 Route::post('/user/verify-pin', [UserController::class, 'verifyPin'])->name('user.verify-pin');
 
 

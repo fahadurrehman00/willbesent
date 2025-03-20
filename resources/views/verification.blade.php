@@ -16,7 +16,7 @@
         
         <main class="flex justify-center items-center bg-gray-100 py-36">
             <section class="bg-white p-6 rounded-lg shadow-lg w-[32rem] text-center">
-                <h2 class="text-2xl font-semibold mb-4">Enter Pin Code to Verify</h2>
+                <h2 class="text-2xl font-semibold mb-4"> Enter Pin Code to Verify</h2>
                 <div class="flex justify-center space-x-2 mb-4">
                     <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
                     <input type="text" maxlength="1" class="pincode-input w-12 h-12 text-center text-xl border rounded-lg" />
