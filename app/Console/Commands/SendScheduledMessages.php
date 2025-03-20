@@ -62,7 +62,8 @@ class SendScheduledMessages extends Command
                         $client->messages->create(
                             $user->phone,
                             [
-                                'from' => $twilioPhoneNumber,
+                                'from' => '+18444353469',
+                                // 'from' => $twilioPhoneNumber,
                                 'body' => "Hello {$user->name}, please verify your account to continue using our services. Click the link below to verify your account: https://willbesent.com/user/verification"
                             ]
                         );
