@@ -23,10 +23,10 @@
 
             <!-- User Details -->
             <div class="mt-4 p-4 border rounded-lg bg-gray-50">
-                <p><strong>Name:</strong> {{ $user->first_name }} {{ $user->last_name }}</p>
+                <p><strong>Name:</strong> {{ $user->firstname }} {{ $user->lastname }}</p>
                 <p><strong>Phone:</strong> {{ $user->phone }}</p>
                 <p><strong>Email:</strong> {{ $user->email }}</p>
-                <p><strong>Full Address:</strong> {{ $user->address }}, {{ $user->city }}, {{ $user->state }}, {{ $user->zip }}</p>
+                <p><strong>Full Address:</strong> {{ $user->street }}, {{ $user->city }}, {{ $user->state }}, {{ $user->zip }}</p>
                 <p><strong>State:</strong> {{ $user->state }}</p>
             </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Will Be Sent</title>
+    <title>Welcome To Will Be Sent</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -19,7 +19,7 @@
             <p class="text-lg font-medium">Hey {{ $user->firstname }},</p>
             <p class="mt-4">
                 On behalf of the team here, I’d like to be the first to welcome you to
-                <span class="font-semibold">Will Be Sent</span>, the only way to produce and manage your will!
+                <span class="font-semibold">Will Be Sent</span>, the new and only way to distribute and manage your will or trust!
             </p>
             <p class="mt-4">
                 If you haven’t already, the next step will be to log into your account and select a plan.

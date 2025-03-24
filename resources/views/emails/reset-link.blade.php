@@ -18,7 +18,7 @@
         <div class="p-6 text-gray-700">
             <p class="text-lg font-medium">Hey  {{ $user->firstname }},</p>
             <p class="mt-4">
-                We’ve received a request to reset your password for your account at 
+                We’ve received a request to reset your password for your account with 
                 <span class="font-semibold">Will Be Sent</span>.
             </p>
             <p class="mt-4">
@@ -28,12 +28,12 @@
             <!-- CTA Button -->
             <div class="text-center mt-6">
                 <a href="{{ $actionUrl }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium shadow-md hover:bg-blue-700 transition">
-                    Reset Password
+                    Reset Your Password
                 </a>
             </div>
 
             <p class="mt-6">
-                If you did not request this change, you can safely ignore this email. Your password will not be changed.
+                If you did not request this change, you can simply ignore this email. Your password will not be changed.
             </p>
 
             <!-- Signature -->

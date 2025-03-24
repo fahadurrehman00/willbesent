@@ -69,7 +69,7 @@ class SendScheduledMessages extends Command
                             $user->phone,
                             [
                                 'from' => '+18444353469',
-                                'body' => "Hello {$user->name}, please verify your account to continue using our services. Click the link below to verify your account: https://willbesent.com/user/verification"
+                                'body' => "Hello {$user->name}, Will Be Sent - Verification Requested. Please verify your account by clicking the link below within 20 minutes. https://willbesent.com/user/verification"
                             ]
                         );
 

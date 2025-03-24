@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You’re Now A Recipient On Will Be Sent</title>
+    <title>WBS Recipient Added</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@ We just had the following recipient added. Please check the information below an
     <li><strong>Name:</strong> {{ $recipient->name }}</li>
     <li><strong>Email:</strong> {{ $recipient->email }}</li>
     <li><strong>Phone:</strong> {{ $recipient->mobile }}</li>
-    <li><strong>Address:</strong> {{ $recipient->street }}, {{$recipient->city}},{{ $recipient->state}}</li>
+    <li><strong>Address:</strong> {{ $recipient->street }}, {{$recipient->city}}, {{ $recipient->state}} {{ $recipient->zip}}</li>
 </ul>
 <p>
 Please make sure the recipient is added to the tracker.
