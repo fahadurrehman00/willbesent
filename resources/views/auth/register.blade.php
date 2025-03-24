@@ -50,13 +50,16 @@
                         <input type="email" name="email" placeholder="E-mail address (verified)"
                             class="px-4 py-3 border border-gray-300 rounded-lg w-full md:w-1/2 focus:outline-none focus:border-black"
                             required />
-                            <input type="tel" name="phone" placeholder="Phone"
-       class="px-4 py-3 border border-gray-300 rounded-lg w-full md:w-1/2 focus:outline-none focus:border-black mt-4 md:mt-0"
-       required
-       value="+"
-       pattern="^\+\d{11}$"
-       maxlength="12"
-       title="Phone number must start with '+' and be 12 digits long." />
+                            <div class="flex">
+    <span class="px-4 py-3 border border-gray-300 bg-gray-200 rounded-l-lg">+1</span>
+    <input type="tel" name="phone" placeholder="Enter your number"
+           class="px-4 py-3 border border-gray-300 rounded-r-lg w-full focus:outline-none focus:border-black"
+           required
+           pattern="^\d{10}$"
+           maxlength="10"
+           title="Enter a 10-digit phone number." />
+</div>
+
 
                     </div>
                     <div class="flex flex-col md:flex-row md:space-x-4">

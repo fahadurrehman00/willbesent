@@ -225,6 +225,17 @@ class UserController extends Controller
         return view('verification');
     }
 
+    public function messageSentSuccessfully()
+    {
+        $user = Auth::user();
+        $user->update(['user_status' => false]);
+
+        // Dispatch a job to check after 20 minutes
+        CheckUserVerification::dispatch($user->id)->delay(now()->addMinutes(1));
+
+        return response()->json(['success' => true, 'message' => 'Message sent, awaiting verification.']);
+    }
+
 
     public function verifyPin(Request $request)
     {
@@ -232,7 +243,7 @@ class UserController extends Controller
         $enteredPin = $request->pin1 . $request->pin2 . $request->pin3 . $request->pin4;
         
         if ($user->pincode == $enteredPin) {
-            $user->update(['userStatus' => true]);
+            $user->update(['user_status' => true]);
             return response()->json(['success' => true, 'message' => 'Verification successful']);
         }
         

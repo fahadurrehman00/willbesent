@@ -19,7 +19,7 @@ class SendScheduledMessages extends Command
 
         $twilioSid = env('TWILIO_SID');
         $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_phone');
+        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER'); 
         $now = Carbon::now();
 
         $client = new Client($twilioSid, $twilioAuthToken);
@@ -29,6 +29,12 @@ class SendScheduledMessages extends Command
         Log::info("Total users found: " . $users->count());
 
         foreach ($users as $user) {
+            // Check if user has an active subscription
+            if (!isset($user->subscriptions[0])) {
+                Log::info("Skipping user {$user->name} ({$user->phone}) - No active subscription found.");
+                continue;
+            }
+
             $messageTime = Carbon::parse($user->message_time);
             $lastMessageSentAt = $user->last_message_sent_at ? Carbon::parse($user->last_message_sent_at) : null;
 
@@ -63,7 +69,6 @@ class SendScheduledMessages extends Command
                             $user->phone,
                             [
                                 'from' => '+18444353469',
-                                // 'from' => $twilioPhoneNumber,
                                 'body' => "Hello {$user->name}, please verify your account to continue using our services. Click the link below to verify your account: https://willbesent.com/user/verification"
                             ]
                         );
