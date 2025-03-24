@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'firstname' => $request->firstName,
             'lastname' => $request->lastName,  // Corrected field from email to lastName
-            'phone' => $request->phone,  // Added phone field
+            'phone' => '+1' . $request->phone,  // Added phone field
             'state' => $request->state,  // Added state field
             'pincode' => $request->pincode,
             'zip' => $request->zip,  // Added zip field
