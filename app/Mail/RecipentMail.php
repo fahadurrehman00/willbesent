@@ -23,7 +23,7 @@ class RecipentMail extends Mailable
 
     public function build()
     {
-        return $this->subject('WBS Recipient Added')
+        return $this->subject('You’re Now A Recipient On Will Be Sent')
             ->view('emails.recipient')
             // ->view('emails.admin-recipient')
             ->with([
