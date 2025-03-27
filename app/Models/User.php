@@ -33,6 +33,8 @@ class User extends Authenticatable
         'pincode',
         'profile_image',
         'message_time',
+        'user_status',
+        'last_verification_attempt'
     ];
 
     /**
@@ -79,6 +81,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_verification_attempt' => 'datetime',
         ];
     }
 

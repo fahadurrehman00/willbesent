@@ -228,26 +228,54 @@ class UserController extends Controller
     public function messageSentSuccessfully()
     {
         $user = Auth::user();
-        $user->update(['user_status' => false]);
 
-        // Dispatch a job to check after 20 minutes
-        CheckUserVerification::dispatch($user->id)->delay(now()->addMinutes(1));
+        Log::info("Message sent for user ID: {$user->id}");
 
-        return response()->json(['success' => true, 'message' => 'Message sent, awaiting verification.']);
+        // Set user status to false when message is sent
+        $user->update([
+            'user_status' => false,
+            'last_verification_attempt' => now()
+        ]);
+
+        Log::info("User status set to false for ID: {$user->id}, Dispatching verification job.");
+
+        // Dispatch a job to check verification status after 2 minutes
+        CheckUserVerification::dispatch($user->id)
+            ->delay(now()->addMinutes(2));
+
+        Log::info("Verification job dispatched for user ID: {$user->id}");
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'Message sent, awaiting verification.'
+        ]);
     }
-
 
     public function verifyPin(Request $request)
     {
         $user = Auth::user();
         $enteredPin = $request->pin1 . $request->pin2 . $request->pin3 . $request->pin4;
-        
+
+        Log::info("User ID: {$user->id} is attempting verification with PIN: {$enteredPin}");
+
         if ($user->pincode == $enteredPin) {
+            // Set user status to true upon successful verification
             $user->update(['user_status' => true]);
-            return response()->json(['success' => true, 'message' => 'Verification successful']);
+
+            Log::info("Verification successful for user ID: {$user->id}");
+
+            return response()->json([
+                'success' => true, 
+                'message' => 'Verification successful'
+            ]);
         }
-        
-        return response()->json(['success' => false, 'message' => 'Invalid PIN code']);
+
+        Log::warning("Failed verification attempt for user ID: {$user->id} with PIN: {$enteredPin}");
+
+        return response()->json([
+            'success' => false, 
+            'message' => 'Invalid PIN code'
+        ]);
     }
 
 }
